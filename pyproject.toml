@@ -1,0 +1,112 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cat"
+version = "0.1.0"
+description = "NetEase Product."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "AvePoint", email = "avepoint@avepoint.com" }]
+dependencies = [
+  # 3rd party
+  "fastapi[standard]>=0.115.8",
+  "openpyxl>=3.1.5",
+  "pydantic>=2.10.6",
+  "pydantic-extra-types[all]>=2.10.2",
+  "pydantic-settings>=2.8.0",
+]
+
+[project.scripts]
+cat = "cat.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cat"]
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[dependency-groups]
+dev = [
+  "ipykernel>=6.29.5",
+  "ruff>=0.9.7",
+  "pylint>=3.3.4",
+  "pre-commit>=4.1.0",
+  # type checking
+  "mypy[faster-cache]>=1.15.0",
+  # testing
+  "hypothesis>=6.127.2",
+  "pytest>=8.3.4",
+  "pytest-clarity>=1.0.1",
+  "pytest-cov>=6.0.0",
+  "pytest-mock>=3.14.0",
+  "pytest-pretty>=1.2.0",
+  "pytest-randomly>=3.16.0",
+  "pytest-instafail>=0.5.0",
+  "pytest-benchmark>=5.1.0",
+  "respx>=0.22.0",
+  "testcontainers[elasticsearch,minio]>=4.9.1",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+  # general
+  "--exitfirst",
+  "-vv",
+  "--failed-first",
+  # reporting
+  "--durations=5",
+  "--no-header",
+  "-ra",
+  "--showlocals",
+  "--junitxml=.cache/pytest/report.xml",
+  # warnings
+  "--strict-config",
+  "--strict-markers",
+  # collection
+  "--import-mode=importlib",
+  "--doctest-modules",
+  "--doctest-continue-on-failure",
+  # pytest-cov
+  "--cov",
+  "--cov-report=term-missing:skip-covered",
+  "--cov-report=xml:.cache/pytest/coverage.xml",
+  # pytest-clarity
+  "--diff-symbols",
+  # pytest-instafail
+  "--instafail",
+  # pytest-benchmark
+  "--benchmark-skip",
+  "--benchmark-warmup=on",
+  "--benchmark-disable-gc",
+  "--benchmark-sort=mean",
+  "--benchmark-storage=file://./.cache/benchmarks",
+  # hypothesis
+  "--hypothesis-show-statistics",
+  "--hypothesis-explain",
+]
+cache_dir = ".cache/pytest"
+doctest_optionflags = "NUMBER IGNORE_EXCEPTION_DETAIL"
+markers = ["slow: mark tests as slow"]
+testpaths = ["tests"]
+verbosity_assertions = 2
+xfail_strict = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = []
+branch = true
+data_file = ".cache/pytest/coverage"
+relative_files = true
+
+[tool.coverage.report]
+fail_under = 50
+show_missing = true
+skip_covered = true
+exclude_lines = [
+  "no cover",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+]
