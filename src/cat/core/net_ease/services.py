@@ -15,10 +15,42 @@ def calculate_personal_deduction(number_of_dependents: float) -> float:
     )
 
 
-def calculate_insurance(gross_salary: float) -> float:
-    return gross_salary * (
-        ConstantsSalary.BHXH_RATE + ConstantsSalary.BHYT_RATE + ConstantsSalary.BHTN_RATE
-    )
+def calculate_insurance(gross_salary: float, region: int) -> float:
+    # BHXH
+    if gross_salary * ConstantsSalary.BHXH_RATE > ConstantsSalary.LIMIT_BH * ConstantsSalary.BHXH_RATE:
+        bhxh_amount = ConstantsSalary.LIMIT_BH * ConstantsSalary.BHXH_RATE
+    else:
+        bhxh_amount = gross_salary * ConstantsSalary.BHXH_RATE
+
+    # BHYT
+    if gross_salary * ConstantsSalary.BHYT_RATE > ConstantsSalary.LIMIT_BH * ConstantsSalary.BHYT_RATE:
+        bhyt_amount = ConstantsSalary.LIMIT_BH * ConstantsSalary.BHYT_RATE
+    else:
+        bhyt_amount = gross_salary * ConstantsSalary.BHYT_RATE
+
+    # BHTN
+    if region == 1:
+        if gross_salary * ConstantsSalary.BHTN_RATE > ConstantsSalary.LIMIT_BHTN_V1 * ConstantsSalary.BHTN_RATE:
+            bhtn_amount = ConstantsSalary.LIMIT_BHTN_V1 * ConstantsSalary.BHTN_RATE
+        else:
+            bhtn_amount = gross_salary * ConstantsSalary.BHTN_RATE
+    elif region == 2:
+        if gross_salary * ConstantsSalary.BHTN_RATE > ConstantsSalary.LIMIT_BHTN_V2 * ConstantsSalary.BHTN_RATE:
+            bhtn_amount = ConstantsSalary.LIMIT_BHTN_V2 * ConstantsSalary.BHTN_RATE
+        else:
+            bhtn_amount = gross_salary * ConstantsSalary.BHTN_RATE
+    elif region == 3:
+        if gross_salary * ConstantsSalary.BHTN_RATE > ConstantsSalary.LIMIT_BHTN_V3 * ConstantsSalary.BHTN_RATE:
+            bhtn_amount = ConstantsSalary.LIMIT_BHTN_V3 * ConstantsSalary.BHTN_RATE
+        else:
+            bhtn_amount = gross_salary * ConstantsSalary.BHTN_RATE
+    elif region == 4:
+        if gross_salary * ConstantsSalary.BHTN_RATE > ConstantsSalary.LIMIT_BHTN_V4 * ConstantsSalary.BHTN_RATE:
+            bhtn_amount = ConstantsSalary.LIMIT_BHTN_V4 * ConstantsSalary.BHTN_RATE
+        else:
+            bhtn_amount = gross_salary * ConstantsSalary.BHTN_RATE
+
+    return bhtn_amount + bhyt_amount + bhxh_amount
 
 
 def calculate_tax(pre_tax_income: float, tax_config: TaxConfig) -> float:

@@ -3,11 +3,12 @@ from __future__ import annotations
 from typing import Any
 
 import requests
-
+from dev_ui.core.utils import format_region
 
 def call_handle_convert_gross_to_net_api(
     gross_salary: float,
     number_of_dependents: int,
+    wage_zone: str,
     api_base_url: str,
 ) -> dict[str, Any]:
     """Call the API to convert gross salary to net salary.
@@ -15,6 +16,7 @@ def call_handle_convert_gross_to_net_api(
     Args:
         gross_salary (float): The gross salary amount.
         number_of_dependents (int): The number of dependents.
+        wage_zone (str): The wage zone (1, 2, 3, or 4).
         api_base_url (str): The base URL of the API.
 
     Returns:
@@ -29,6 +31,7 @@ def call_handle_convert_gross_to_net_api(
     params = {
         "gross_salary": gross_salary,
         "number_of_dependents": number_of_dependents,
+        "region": format_region(wage_zone),
     }
 
     try:

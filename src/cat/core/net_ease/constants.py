@@ -6,9 +6,16 @@ from cat.core.net_ease.entities import TaxBracket
 
 
 class ConstantsSalary:
+    LIMIT_BH = 46_800_000
     BHXH_RATE = 0.08
     BHYT_RATE = 0.015
+
+    LIMIT_BHTN_V1 = 99_200_000
+    LIMIT_BHTN_V2 = 88_200_000
+    LIMIT_BHTN_V3 = 77_200_000
+    LIMIT_BHTN_V4 = 69_000_000
     BHTN_RATE = 0.01
+
     BASIC_DEDUCTION = 11_000_000
     DEPENDENT_DEDUCTION = 4_400_000
 

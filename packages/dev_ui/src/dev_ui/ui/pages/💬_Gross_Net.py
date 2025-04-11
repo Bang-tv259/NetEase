@@ -37,6 +37,7 @@ with st.form("salary_form"):
         result = call_handle_convert_gross_to_net_api(
             salary,
             dependent,
+            wage_zone,
             config.backend_url,
         )
 
@@ -59,7 +60,7 @@ with st.form("salary_form"):
             "Name": [
                 "Type Convert",
                 "Gross Salary",
-                "Insurance (10.5%)",
+                "Insurance (<=10.5%)",
                 "Personal Income Tax",
                 "Net Salary",
             ],

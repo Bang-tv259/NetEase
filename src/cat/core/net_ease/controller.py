@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
 def handle_convert_gross_to_net(
-    gross_salary: float, number_of_dependents: int, tax_config_dep: TaxConfig
+    gross_salary: float, number_of_dependents: int, region: int, tax_config_dep: TaxConfig
 ) -> SalaryOutput:
     """Convert gross salary to net salary.
 
@@ -30,7 +30,7 @@ def handle_convert_gross_to_net(
     - personal income tax
     """
     # Step 1: Calculate insurance once
-    insurance_amount = calculate_insurance(gross_salary)
+    insurance_amount = calculate_insurance(gross_salary, region)
 
     # Step 2: Compute taxable income (pre-tax income)
     pre_tax_income = (
@@ -69,6 +69,7 @@ async def handle_upload_excel(file: UploadFile, tax_config_dep: TaxConfig) -> Wo
         "Employee Name",
         "Gross Salary",
         "Number of Dependents",
+        "Region",
         "Net Salary",
     ])
 
@@ -83,10 +84,11 @@ async def handle_upload_excel(file: UploadFile, tax_config_dep: TaxConfig) -> Wo
         employee_name = row[1]
         gross_salary = row[2]
         number_of_dependents = row[3]
+        region = row[4]
 
         # Call the conversion function
         net_salary_output = handle_convert_gross_to_net(
-            float(gross_salary), int(number_of_dependents), tax_config_dep
+            float(gross_salary), int(number_of_dependents), int(region), tax_config_dep
         )
 
         # Write the result to the new sheet
@@ -95,6 +97,7 @@ async def handle_upload_excel(file: UploadFile, tax_config_dep: TaxConfig) -> Wo
             employee_name,
             gross_salary,
             number_of_dependents,
+            region,
             net_salary_output.net_salary,
         ])
 

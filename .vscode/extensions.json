@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+      "EditorConfig.EditorConfig",
+      "tamasfe.even-better-toml",
+      "ms-python.mypy-type-checker",
+      "esbenp.prettier-vscode",
+      "ms-python.vscode-pylance",
+      "ms-python.python",
+      "charliermarsh.ruff",
+      "nefrob.vscode-just-syntax",
+      "mikestead.dotenv"
+    ]
+  }

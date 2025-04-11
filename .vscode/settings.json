@@ -1,0 +1,31 @@
+{
+    "[python]": {
+      "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "[toml]": {
+      "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "evenBetterToml.formatter.allowedBlankLines": 1,
+    "evenBetterToml.formatter.columnWidth": 90,
+    "files.autoSave": "onFocusChange",
+    "files.eol": "\n",
+    "files.exclude": {
+      "**/__pycache__": true
+    },
+    "files.associations": {
+      ".env*": "dotenv",
+      "env.*": "dotenv"
+    },
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "mypy-type-checker.importStrategy": "fromEnvironment",
+    "mypy-type-checker.preferDaemon": true,
+    "prettier.printWidth": 90,
+    "prettier.proseWrap": "always"
+  }

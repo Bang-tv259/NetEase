@@ -18,8 +18,9 @@ async def calculate_net_salary_api(
     tax_config_dep: TaxConfigDep,
     gross_salary: float = Query(...),
     number_of_dependents: int = Query(...),
+    region: int = Query(...),
 ) -> SalaryOutput:
-    return handle_convert_gross_to_net(gross_salary, number_of_dependents, tax_config_dep)
+    return handle_convert_gross_to_net(gross_salary, number_of_dependents, region, tax_config_dep)
 
 
 @router.post("/net_salary/upload/")

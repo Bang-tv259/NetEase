@@ -116,6 +116,8 @@ mise use -g uv just watchexec
 
 ## Run NetEase service
 
+## Solution 1:
+
 ### 1, Create and use enviroment
 
 ```
@@ -130,6 +132,36 @@ python src/cat/api/main.py
 ```
 
 ### 3, Frontend: Run Streamlit -> <http://localhost:8501>
+
+```
+streamlit run packages/dev_ui/src/dev_ui/ui/Homepage.py
+```
+
+## Solution 2:
+
+### 1, Create and use enviroment
+
+```
+python -m venv .venv          # Create enviroment
+
+source .venv/bin/activate     # Activate enviroment for Unbuntu
+.venv\Scripts\Activate.ps1    # Activate enviroment for Windows
+```
+
+### 2, Install library
+
+```
+pip install -e packages/dev_ui
+pip install -e .
+```
+
+### 3, Backend: Run FastAPI -> <http://localhost:8888>
+
+```
+python src/cat/api/main.py
+```
+
+### 4, Frontend: Run Streamlit -> <http://localhost:8501>
 
 ```
 streamlit run packages/dev_ui/src/dev_ui/ui/Homepage.py

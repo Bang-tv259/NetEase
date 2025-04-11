@@ -7,7 +7,7 @@ name = "dev_ui"
 version = "0.1.0"
 description = "Dev UI for NetEase."
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.8,<3.13"
 authors = [{ name = "AvePoint", email = "avepoint@avepoint.com" }]
 dependencies = [
     "httpx>=0.28.1",
