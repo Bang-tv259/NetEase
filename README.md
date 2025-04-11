@@ -145,7 +145,7 @@ streamlit run packages/dev_ui/src/dev_ui/ui/Homepage.py
 python -m venv .venv          # Create enviroment
 
 source .venv/bin/activate     # Activate enviroment for Unbuntu
-.venv\Scripts\Activate.ps1    # Activate enviroment for Windows
+.venv\Scripts\Activate        # Activate enviroment for Windows
 ```
 
 ### 2, Install library
