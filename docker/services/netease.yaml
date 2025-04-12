@@ -1,0 +1,9 @@
+services:
+  netease:
+    build:
+      context: ../..
+      dockerfile: ./docker/net.dockerfile
+    container_name: netease
+    restart: always
+    ports:
+      - "8888:8888"
