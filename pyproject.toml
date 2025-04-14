@@ -7,7 +7,7 @@ name = "cat"
 version = "0.1.0"
 description = "NetEase Product."
 readme = "README.md"
-requires-python = ">=3.8,<3.13"
+requires-python = ">=3.9,<3.13"
 authors = [{ name = "AvePoint", email = "avepoint@avepoint.com" }]
 dependencies = [
   # 3rd party
