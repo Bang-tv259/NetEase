@@ -1,0 +1,9 @@
+services:
+  streamlit:
+    build:
+      context: ../..
+      dockerfile: ./docker/streamlit.dockerfile
+    container_name: streamlit
+    restart: always
+    ports:
+      - "8501:8501"
