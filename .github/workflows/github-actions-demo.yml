@@ -52,6 +52,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: 🚀 Push Image
         run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker tag ${{ secrets.DOCKER_USERNAME }}/netease:latest alaricle/ci-demo/netease:latest
           docker push alaricle/ci-demo/netease:latest
           docker tag ${{ secrets.DOCKER_USERNAME }}/streamlit:latest alaricle/ci-demo/streamlit:latest
