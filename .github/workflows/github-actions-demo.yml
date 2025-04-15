@@ -29,7 +29,8 @@ jobs:
           uv sync
       - name: Run unit tests
         run: |
-          uv run python pytest tests/core/netease/test_*.py
+          pytest tests/core/netease/test_controller.py
+          pytest tests/core/netease/test_service.py
 
 #   build:
 #     name: Build and publish
