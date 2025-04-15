@@ -8,13 +8,13 @@ on:
 
 jobs:
   test:
-    name: Run unit tests
+    name: ✅ Run Unit Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 🔍 Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
@@ -24,36 +24,33 @@ jobs:
           curl -Ls https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
-      - name: Install dependencies with uv
+      - name: 📦 Install dependencies with uv
         run: |
           uv sync
-      - name: Run unit tests
+      - name: 🧪 Run Unit Tests
         run: |
           source .venv/bin/activate
           pytest tests/core/netease/test_controller.py
           pytest tests/core/netease/test_services.py
 
-#   build:
-#     name: Build and publish
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3
+  build-push:
+    name: 🚀 Build and Push Docker Images
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: 🐳 Checkout Code
+        uses: actions/checkout@v3
 
-#       - name: Set up Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: "3.12"
-
-#       - name: Install uv
-#         run: |
-#           curl -Ls https://astral.sh/uv/install.sh | sh
-#           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
-#       - name: Install dependencies with uv
-#         run: |
-#           uv sync
-
-#       - name: Build and publish with uv
-#         run: |
-#           uv build --publish
+      - name: 🏗️ Build Image
+        run: |
+          docker compose -f docker/services/netease.yaml
+          docker compose -f docker/services/streamlit.yaml
+      - name: 🔐 Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: 🚀 Push Image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/netease:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/streamlit:latest
