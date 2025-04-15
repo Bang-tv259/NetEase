@@ -52,5 +52,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: 🚀 Push Image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/netease:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/streamlit:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ci-demo/netease:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ci-demo/streamlit:latest
