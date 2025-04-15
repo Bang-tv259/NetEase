@@ -31,7 +31,7 @@ jobs:
         run: |
           source .venv/bin/activate
           pytest tests/core/netease/test_controller.py
-          pytest tests/core/netease/test_service.py
+          pytest tests/core/netease/test_services.py
 
 #   build:
 #     name: Build and publish
