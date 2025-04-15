@@ -1,0 +1,7 @@
+name: netease
+networks:
+  netease_network: {}
+
+include:
+  - ./services/netease.yaml
+  - ./services/streamlit.yaml

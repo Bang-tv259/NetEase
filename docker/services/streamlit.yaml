@@ -7,3 +7,7 @@ services:
     restart: always
     ports:
       - "8501:8501"
+    environment:
+      - UI_BACKEND_URL=http://netease:8888
+    networks:
+      - netease_network

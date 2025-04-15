@@ -7,3 +7,9 @@ services:
     restart: always
     ports:
       - "8888:8888"
+    environment:
+      - CAT_BACKEND_PORT=8888
+      - CAT_BACKEND_HOST=netease
+      - CAT_BACKEND_ALLOWED_ORIGINS=["*"]
+    networks:
+      - netease_network
