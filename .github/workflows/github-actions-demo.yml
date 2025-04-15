@@ -52,7 +52,6 @@ jobs:
       #       password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: 🚀 Push Image
         run: |
-          docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/netease:latest mocdiep/ci-demo/netease:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/ci-demo/netease:latest
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/streamlit:latest mocdiep/ci-demo/streamlit:latest
