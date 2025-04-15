@@ -7,11 +7,10 @@ from openpyxl import Workbook, load_workbook
 
 from cat.core.net_ease.dto import SalaryOutput
 from cat.core.net_ease.services import (
-    calculate_tax,
     calculate_insurance,
     calculate_personal_deduction,
+    calculate_tax,
 )
-
 
 if TYPE_CHECKING:
     from fastapi import UploadFile
@@ -20,7 +19,10 @@ if TYPE_CHECKING:
 
 
 def handle_convert_gross_to_net(
-    gross_salary: float, number_of_dependents: int, region: int, tax_config_dep: TaxConfig
+    gross_salary: float,
+    number_of_dependents: int,
+    region: int,
+    tax_config_dep: TaxConfig,
 ) -> SalaryOutput:
     """Convert gross salary to net salary.
 
@@ -64,14 +66,16 @@ async def handle_upload_excel(file: UploadFile, tax_config_dep: TaxConfig) -> Wo
     # Prepare a new workbook to write the result to
     new_wb = Workbook()
     new_sheet = new_wb.active
-    new_sheet.append([
-        "ID",
-        "Employee Name",
-        "Gross Salary",
-        "Number of Dependents",
-        "Region",
-        "Net Salary",
-    ])
+    new_sheet.append(
+        [
+            "ID",
+            "Employee Name",
+            "Gross Salary",
+            "Number of Dependents",
+            "Region",
+            "Net Salary",
+        ]
+    )
 
     # Iterate through the rows in the original sheet
     for row in sheet.iter_rows(min_row=2, values_only=True):
@@ -92,13 +96,15 @@ async def handle_upload_excel(file: UploadFile, tax_config_dep: TaxConfig) -> Wo
         )
 
         # Write the result to the new sheet
-        new_sheet.append([
-            employee_id,
-            employee_name,
-            gross_salary,
-            number_of_dependents,
-            region,
-            net_salary_output.net_salary,
-        ])
+        new_sheet.append(
+            [
+                employee_id,
+                employee_name,
+                gross_salary,
+                number_of_dependents,
+                region,
+                net_salary_output.net_salary,
+            ]
+        )
 
     return new_wb
