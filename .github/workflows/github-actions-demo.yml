@@ -43,8 +43,8 @@ jobs:
 
       - name: 🏗️ Build Image
         run: |
-          docker build -f docker/net.dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/netease:latest .
-          docker build -f docker/streamlit.dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/streamlit:latest .
+          docker build -f docker/net.dockerfile -t ${{ secrets.DOCKER_USERNAME }}/netease:latest .
+          docker build -f docker/streamlit.dockerfile -t ${{ secrets.DOCKER_USERNAME }}/streamlit:latest .
       - name: 🔐 Login to DockerHub
         uses: docker/login-action@v3
         with:
@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: 🚀 Push Image
         run: |
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/netease:latest alaricle/ci-demo/netease:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/netease:latest alaricle/ci-demo/netease:latest
           docker push alaricle/ci-demo/netease:latest
-          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/streamlit:latest alaricle/ci-demo/streamlit:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/streamlit:latest alaricle/ci-demo/streamlit:latest
           docker push alaricle/ci-demo/streamlit:latest
