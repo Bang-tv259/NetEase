@@ -43,3 +43,7 @@ async def upload_excel(
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={"Content-Disposition": "attachment; filename=processed_salaries.xlsx"},
     )
+
+@router.get("/healthz")
+def health_check():
+    return {"status": "healthy"}
