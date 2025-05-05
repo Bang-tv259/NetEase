@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app.kubernetes.io/name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: alaricle/streamlit:latest
+          ports:
+            - containerPort: 8501
+              name: pod-http
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "64m"
+            limits:
+              memory: "200Mi"
+              cpu: "128m"
+          envFrom:
+            - configMapRef:
+                name: frontend-config
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: myport
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 1
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: myport
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: myport
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 1
+            successThreshold: 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app.kubernetes.io/name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: alaricle/netease:latest
+          ports:
+            - containerPort: 8888
+              name: pod-http
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "64m"
+            limits:
+              memory: "200Mi"
+              cpu: "128m"
+          envFrom:
+            - configMapRef:
+                name: backend-config
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: myport
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 1
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: myport
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: myport
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 1
+            successThreshold: 3

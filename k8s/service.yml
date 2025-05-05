@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      name: svc-http
+      targetPort: pod-http
+      protocol: TCP
+  selector:
+    app: frontend
+    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8888
+      name: svc-http
+      targetPort: pod-http
+      protocol: TCP
+  selector:
+    app: backend
