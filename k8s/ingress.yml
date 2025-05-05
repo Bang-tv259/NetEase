@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - 441781.learnk8s.jamesisme.com
+    secretName: todo-tls
+  rules:
+  - host: 441781.learnk8s.jamesisme.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: frontend
+            port:
+              name: svc-http
+      # - path: /api
+      #   pathType: Prefix
+      #   backend:
+      #     service: 
+      #       name: backend
+      #       port:
+      #         name: svc-http
